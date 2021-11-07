@@ -1,39 +1,57 @@
 package ua.lviv.iot.controller;
 
-import ua.lviv.iot.dal.GeneralDao;
+import ua.lviv.iot.dal.dao.GeneralDao;
+import ua.lviv.iot.models.manager.Manager;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 
-public class GeneralController<Entity> implements AbstractController<Entity> {
-    private final GeneralDao<Entity> dao;
+public class GeneralController<Entity, Id> implements AbstractController<Entity, Id> {
+    private final GeneralDao<Entity, Id> dao;
+    private final Manager<Entity, Id> manager;
 
-    public GeneralController (GeneralDao<Entity> dao) {
+    public GeneralController(GeneralDao<Entity, Id> dao) {
         this.dao = dao;
+        this.manager = dao.getManager();
     }
 
     @Override
     public List<Entity> getAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
 
     @Override
-    public Entity get(Integer id) {
-        return dao.findById(id);
+    public Entity getById(String idString) {
+        return dao.getById((Id) idString);
     }
 
     @Override
-    public Integer create(Entity newItem) {
-        return dao.create(newItem);
+    public boolean create() {
+        try {
+            Entity createdItem = manager.createEntity();
+            return dao.create(createdItem);
+        }
+        catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            System.out.println("An error occurred during entity creation");
+            return false;
+        }
     }
 
     @Override
-    public Integer update(Integer id, Entity updItem) {
-        return dao.update(id, updItem);
+    public boolean update(String idString) {
+        try {
+            Entity updItem = manager.createEntity();
+            return dao.update((Id) idString, updItem);
+        }
+        catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            System.out.println("An error occurred during setting field(s) value");
+            return false;
+        }
     }
 
     @Override
-    public Integer delete(Integer id) {
-        return dao.delete(id);
+    public boolean delete(String idString) {
+        return dao.delete((Id) idString);
     }
 }

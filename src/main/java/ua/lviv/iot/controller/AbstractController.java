@@ -2,10 +2,10 @@ package ua.lviv.iot.controller;
 
 import java.util.List;
 
-public interface AbstractController<Entity> {
-    public List<Entity> getAll();
-    public Entity get(Integer id);
-    public Integer create(Entity newItem);
-    public Integer update(Integer id, Entity updItem);
-    public Integer delete(Integer Id);
+public interface AbstractController<Entity, Id> {
+    List<Entity> getAll();
+    Entity getById(String idString);
+    boolean create();
+    boolean update(String idString);
+    boolean delete(String idString);
 }
