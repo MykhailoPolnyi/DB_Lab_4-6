@@ -34,7 +34,7 @@ public class MachineProducer {
     private Integer fullAddressId;
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("Producer: %s, id: %s, email: %s, mobile phone: %s, address id: %s",
                 name,
                 id,

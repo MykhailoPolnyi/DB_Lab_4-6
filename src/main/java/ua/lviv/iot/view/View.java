@@ -3,7 +3,12 @@ package ua.lviv.iot.view;
 import lombok.Setter;
 import ua.lviv.iot.dal.presistant.SqlConnection;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
+
 
 public class View {
     private final Scanner input = new Scanner(System.in);
@@ -18,19 +23,18 @@ public class View {
         canExit = false;
     }
 
-    public void view(){
-        while(true) {
+    public void view() {
+        while (true) {
             String actionString = input.nextLine();
-            List<String> actionParams = new ArrayList<>(Arrays.asList(actionString.split(" "))) ;
+            List<String> actionParams = new ArrayList<>(Arrays.asList(actionString.split(" ")));
             String action = actionParams.get(0);
             actionParams.remove(0);
 
             if (optionsMap.containsKey(action)) {
                 optionsMap.get(action).execute(actionParams);
-            }
-            else {
+            } else {
                 System.out.printf(
-                        "Unknown command '%s'. Please, call 'h' or 'help' to see available options\n", action
+                        "Unknown command '%s'. Please, call 'h' or 'help' to see available options%n", action
                 );
             }
 

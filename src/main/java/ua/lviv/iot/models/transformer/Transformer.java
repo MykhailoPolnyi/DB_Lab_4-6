@@ -21,7 +21,7 @@ public class Transformer<Entity, Id> {
             IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             SecurityException, SQLException {
         Entity entity = manager.getManagedClass().getConstructor().newInstance();
-        for (Field field: manager.getFields()){
+        for (Field field: manager.getFields()) {
             String name = field.getAnnotation(Column.class).name();
             field.setAccessible(true);
             Class<?> fieldType = field.getType();

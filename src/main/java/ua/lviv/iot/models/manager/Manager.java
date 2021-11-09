@@ -8,7 +8,10 @@ import javax.persistence.Table;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 
 @Getter
 public class Manager<Entity, Id> {
@@ -73,17 +76,13 @@ public class Manager<Entity, Id> {
         fieldToInput.setAccessible(true);
         if (fieldValue == null) {
             fieldToInput.set(entity, null);
-        }
-        else if (fieldToInput.getType() == Integer.class) {
+        } else if (fieldToInput.getType() == Integer.class) {
             fieldToInput.set(entity, Integer.parseInt(fieldValue));
-        }
-        else if (fieldToInput.getType() == LocalDate.class) {
+        } else if (fieldToInput.getType() == LocalDate.class) {
             fieldToInput.set(entity, LocalDate.parse(fieldValue));
-        }
-        else if (fieldToInput.getType() == Boolean.class) {
+        } else if (fieldToInput.getType() == Boolean.class) {
             fieldToInput.set(entity, Boolean.getBoolean(fieldValue));
-        }
-        else {
+        } else {
             fieldToInput.set(entity, fieldValue);
         }
     }
@@ -93,12 +92,11 @@ public class Manager<Entity, Id> {
         Entity entity = managedClass.getConstructor().newInstance();
 
         for (Field field: inputableFields) {
-            System.out.printf("Please, enter %s %s value:\n", entity.getClass().getSimpleName(), field.getName());
+            System.out.printf("Please, enter %s %s value:%n", entity.getClass().getSimpleName(), field.getName());
             String fieldValue =  input.nextLine();
             if (fieldValue.trim().equals("")) {
                 setColumnValueByName(entity, field, null);
-            }
-            else {
+            } else {
                 setColumnValueByName(entity, field, fieldValue);
             }
         }
@@ -138,8 +136,7 @@ public class Manager<Entity, Id> {
             updateColumnsString.append("=");
             if (column.get(entity) == null) {
                 updateColumnsString.append("NULL");
-            }
-            else if (column.getType() == LocalDate.class || column.getType() == String.class) {
+            } else if (column.getType() == LocalDate.class || column.getType() == String.class) {
                 updateColumnsString.append("'");
                 updateColumnsString.append(column.get(entity).toString());
                 updateColumnsString.append("'");

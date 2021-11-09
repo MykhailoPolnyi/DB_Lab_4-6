@@ -1,6 +1,6 @@
 package ua.lviv.iot.view.exceptions;
 
-public class TableNotChosenException extends ViewException{
+public class TableNotChosenException extends ViewException {
     public TableNotChosenException(String exceptionMessage) {
         super(exceptionMessage);
     }

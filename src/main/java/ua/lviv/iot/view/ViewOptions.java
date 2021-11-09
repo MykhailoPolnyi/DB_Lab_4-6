@@ -30,23 +30,22 @@ public class ViewOptions {
     public void printHelp(List<String> params) {
         try {
             validateParamsNum(params.size(), 0);
-            System.out.println( new StringBuilder()
-                    .append("+-----------------------------------------------+\n")
-                    .append(" help, h - display help menu\n")
-                    .append(" show-tables - show all available tables\n")
-                    .append(" current-table - display current table\n")
-                    .append(" describe - display fields of current table\n")
-                    .append(" choose-table <table-name> - change table\n")
-                    .append(" get-all - display contents of the table\n")
-                    .append(" get <id> - get element from the table by it's id value\n")
-                    .append(" create - create element with passed field values\n")
-                    .append(" update <id> - updates element with <id> with passed field values")
-                    .append(" delete <id> - deletes element by it's id value")
-                    .append(" quit, q - quit\n")
-                    .append("+-----------------------------------------------+\n")
+            System.out.println(new StringBuilder()
+                    .append("+-----------------------------------------------+%n")
+                    .append(" help, h - display help menu%n")
+                    .append(" show-tables - show all available tables%n")
+                    .append(" current-table - display current table%n")
+                    .append(" describe - display fields of current table%n")
+                    .append(" choose-table <table-name> - change table%n")
+                    .append(" get-all - display contents of the table%n")
+                    .append(" get <id> - get element from the table by it's id value%n")
+                    .append(" create - create element with passed field values%n")
+                    .append(" update <id> - updates element with <id> with passed field values%n")
+                    .append(" delete <id> - deletes element by it's id value%n")
+                    .append(" quit, q - quit%n")
+                    .append("+-----------------------------------------------+%n")
             );
-        }
-        catch (ViewException e) {
+        } catch (ViewException e) {
             System.out.println(e.getMessage());
         }
 
@@ -65,12 +64,10 @@ public class ViewOptions {
             else {
                 entities.forEach((entity) -> System.out.println(entity.toString()));
             }
-        }
-        catch (ViewException e) {
+        } catch (ViewException e) {
             System.out.println(e.getMessage());
-        }
-        catch (NullPointerException e) {
-            System.out.printf("Cannot get data from table '%s'\n", currentEntity.getSimpleName());
+        } catch (NullPointerException e) {
+            System.out.printf("Cannot get data from table '%s'%n", currentEntity.getSimpleName());
         }
     }
 
@@ -81,12 +78,10 @@ public class ViewOptions {
                 throw new TableNotChosenException();
             }
             System.out.println(currentController.getById(params.get(0)).toString());
-        }
-        catch (ViewException e) {
+        } catch (ViewException e) {
             System.out.println(e.getMessage());
-        }
-        catch (NullPointerException e) {
-            System.out.printf("Cannot found element with id = %s\n", params.get(0));
+        } catch (NullPointerException e) {
+            System.out.printf("Cannot found element with id = %s%n", params.get(0));
         }
     }
 
@@ -111,17 +106,15 @@ public class ViewOptions {
     public void update(List<String> params) {
         try {
             validateParamsNum(params.size(), 1);
-            if(!isTableChosen()) {
+            if (!isTableChosen()) {
                 throw new TableNotChosenException("Please, choose table before updating an object");
             }
             if (currentController.update(params.get(0))){
-                System.out.printf("Successfully updated object with id=%s\n", params.get(0));
-            }
-            else {
+                System.out.printf("Successfully updated object with id=%s%n", params.get(0));
+            } else {
                 System.out.println("Object update failed");
             }
-        }
-        catch (ViewException e) {
+        } catch (ViewException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -133,13 +126,11 @@ public class ViewOptions {
                 throw new TableNotChosenException();
             }
             if (currentController.delete(params.get(0))) {
-                System.out.printf("Successfully deleted object with id %s\n", params.get(0));
+                System.out.printf("Successfully deleted object with id %s%n", params.get(0));
+            } else {
+                System.out.printf("Cannot delete object with id %s%n", params.get(0));
             }
-            else {
-                System.out.printf("Cannot delete object with id %s\n", params.get(0));
-            }
-        }
-        catch (ViewException e) {
+        } catch (ViewException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -152,10 +143,9 @@ public class ViewOptions {
             availableEntities.keySet().forEach(
                     tableName -> allTables.append(String.format("%s, ", tableName))
             );
-            allTables.delete(allTables.length()-2, allTables.length()-1);
+            allTables.delete(allTables.length() - 2, allTables.length() - 1);
             System.out.println(allTables);
-        }
-        catch (ViewException e) {
+        } catch (ViewException e) {
             System.out.println(e.getMessage());
         }
 
@@ -167,34 +157,30 @@ public class ViewOptions {
             if (availableEntities.containsKey(params.get(0))) {
                 currentEntity = availableEntities.get(params.get(0));
                 currentController = tableControllers.get(params.get(0));
-                System.out.printf("Table %s selected\n", params.get(0));
-            }
-            else {
+                System.out.printf("Table %s selected%n", params.get(0));
+            } else {
                 throw new WrongTableNameException(params.get(0));
             }
-        }
-        catch (ViewException e) {
+        } catch (ViewException e) {
             System.out.println(e.getMessage());
         }
 
     }
 
-    public void describeTable(List<String > params) {
+    public void describeTable(List<String> params) {
         try {
             validateParamsNum(params.size(), 0);
             if (isTableChosen()) {
-                System.out.printf("Current table: %s\n", currentEntity.getSimpleName());
+                System.out.printf("Current table: %s%n", currentEntity.getSimpleName());
                 for (Field field: currentEntity.getDeclaredFields()) {
                     if (field.isAnnotationPresent(Column.class)) {
-                        System.out.printf("\t%s - %s\n", field.getName(), field.getType().getSimpleName());
+                        System.out.printf("\t%s - %s%n", field.getName(), field.getType().getSimpleName());
                     }
                 }
-            }
-            else {
+            } else {
                 throw new TableNotChosenException();
             }
-        }
-        catch (ViewException e){
+        } catch (ViewException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -203,13 +189,11 @@ public class ViewOptions {
         try {
             validateParamsNum(params.size(), 0);
             if (isTableChosen()) {
-                System.out.printf("Current table: %s\n", currentEntity.getSimpleName());
-            }
-            else  {
+                System.out.printf("Current table: %s%n", currentEntity.getSimpleName());
+            } else  {
                 throw new TableNotChosenException();
             }
-        }
-        catch (ViewException e) {
+        } catch (ViewException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -228,7 +212,7 @@ public class ViewOptions {
         }
     }
 
-    private void setAvailableEntities () {
+    private void setAvailableEntities() {
         availableEntities.put("city", City.class);
         availableEntities.put("country", Country.class);
         availableEntities.put("full-adress", FullAddress.class);
@@ -241,7 +225,7 @@ public class ViewOptions {
         availableEntities.put("snack-machine", SnackMachine.class);
     }
 
-    private void setTableControllers () {
+    private void setTableControllers() {
         tableControllers.put("city", new CityController());
         tableControllers.put("country", new CountryController());
         tableControllers.put("full-adress", new FullAddressController());

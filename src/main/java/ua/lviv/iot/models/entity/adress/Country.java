@@ -23,6 +23,6 @@ public class Country {
 
     @Override
     public String toString() {
-        return String.format("Country: %s, id: %s\n", name, id);
+        return String.format("Country: %s, id: %s", name, id);
     }
 }

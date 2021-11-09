@@ -31,8 +31,7 @@ public class GeneralController<Entity, Id> implements AbstractController<Entity,
         try {
             Entity createdItem = manager.createEntity();
             return dao.create(createdItem);
-        }
-        catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             System.out.println("An error occurred during entity creation");
             return false;
         }
@@ -43,8 +42,7 @@ public class GeneralController<Entity, Id> implements AbstractController<Entity,
         try {
             Entity updItem = manager.createEntity();
             return dao.update((Id) idString, updItem);
-        }
-        catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             System.out.println("An error occurred during setting field(s) value");
             return false;
         }

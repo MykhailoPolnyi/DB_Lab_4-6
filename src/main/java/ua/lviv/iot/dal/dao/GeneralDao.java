@@ -4,11 +4,16 @@ import ua.lviv.iot.dal.presistant.SqlConnection;
 import ua.lviv.iot.models.manager.Manager;
 import ua.lviv.iot.models.transformer.Transformer;
 
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeneralDao<Entity, Id> implements AbstractDao<Entity, Id>{
+public class GeneralDao<Entity, Id> implements AbstractDao<Entity, Id> {
     private final Manager<Entity, Id> manager;
     private final Transformer<Entity, Id> transformer;
 
@@ -33,12 +38,10 @@ public class GeneralDao<Entity, Id> implements AbstractDao<Entity, Id>{
                     resultList.add(transformer.castResultSetToEntity(resultSet));
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             printErrorMessage(e);
             return null;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -55,9 +58,9 @@ public class GeneralDao<Entity, Id> implements AbstractDao<Entity, Id>{
         String primaryKeyName = manager.getPkName();
         String statement = String.format("SELECT * FROM %s WHERE %s = ?;", tableName, primaryKeyName);
 
-        try{
+        try {
             Connection connection = SqlConnection.setConnection();
-            try(
+            try (
                     PreparedStatement getStatement = connection.prepareStatement(statement)
             ) {
                 getStatement.setString(1, id.toString());
@@ -68,11 +71,9 @@ public class GeneralDao<Entity, Id> implements AbstractDao<Entity, Id>{
                     }
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             printErrorMessage(e);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return resultEntity;
@@ -90,16 +91,13 @@ public class GeneralDao<Entity, Id> implements AbstractDao<Entity, Id>{
             try( PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
                 return !(preparedStatement.executeUpdate() == 0);
             }
-        }
-        catch (SQLIntegrityConstraintViolationException foreignKeyFail) {
+        } catch (SQLIntegrityConstraintViolationException foreignKeyFail) {
             System.out.println("Wrong dependency provided during object creation");
             return false;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             printErrorMessage(e);
             return false;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -121,12 +119,10 @@ public class GeneralDao<Entity, Id> implements AbstractDao<Entity, Id>{
 
                 return  !(preparedStatement.executeUpdate() == 0);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             printErrorMessage(e);
             return false;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -145,19 +141,17 @@ public class GeneralDao<Entity, Id> implements AbstractDao<Entity, Id>{
 
                 return !(preparedStatement.executeUpdate() == 0);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             printErrorMessage(e);
             return false;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
     private void printErrorMessage(Exception e) {
-        System.out.printf("An exception occurred during query execution: %s\n", e.getMessage());
+        System.out.printf("An exception occurred during query execution: %s%n", e.getMessage());
     }
 
     public Manager<Entity, Id> getManager() {

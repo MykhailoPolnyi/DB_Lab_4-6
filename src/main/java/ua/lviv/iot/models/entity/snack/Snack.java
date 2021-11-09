@@ -31,7 +31,7 @@ public class Snack {
 
     @Column(name = "snack_producer_id")
     @NotNull
-    private Integer producer_id;
+    private Integer producerId;
 
     @Override
     public String toString() {
@@ -40,7 +40,7 @@ public class Snack {
                 type,
                 price,
                 id,
-                producer_id
+                producerId
         );
     }
 }

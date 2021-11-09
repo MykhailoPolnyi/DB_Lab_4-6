@@ -30,9 +30,9 @@ public class FullAddress {
     @Override
     public String toString() {
         return String.format(
-                "Street: %s, %s, id: %s, city_id: %s\n",
-                (street !=null ? street : "unknown" ),
-                (number !=null ? number : "unknown" ),
+                "Street: %s, %s, id: %s, city_id: %s",
+                (street != null ? street : "unknown"),
+                (number != null ? number : "unknown"),
                 id,
                 cityId
         );

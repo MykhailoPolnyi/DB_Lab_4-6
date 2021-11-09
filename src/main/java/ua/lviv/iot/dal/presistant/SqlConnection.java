@@ -27,8 +27,7 @@ public class SqlConnection {
         if (connection != null) {
             try {
                 connection.close();
-            }
-            catch (SQLException sqlException) {
+            } catch (SQLException sqlException) {
                 System.out.println("SQL Exception:" + sqlException.getMessage());
                 System.out.println("SQL State:" + sqlException.getSQLState());
                 System.out.println("Vendor Error:" + sqlException.getErrorCode());
