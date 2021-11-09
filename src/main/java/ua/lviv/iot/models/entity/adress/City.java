@@ -29,4 +29,9 @@ public class City {
     @Column(name = "region")
     @NotNull
     private String region;
+
+    @Override
+    public String toString() {
+        return String.format("City: %s, Region: %s, id: %s, countryId: %s\n", name, region, id, countryId);
+    }
 }

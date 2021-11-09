@@ -1,12 +1,10 @@
 package ua.lviv.iot.models.manager;
 
 import lombok.Getter;
-import org.apache.commons.lang.NullArgumentException;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;

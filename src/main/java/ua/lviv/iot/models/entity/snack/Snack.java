@@ -32,4 +32,15 @@ public class Snack {
     @Column(name = "snack_producer_id")
     @NotNull
     private Integer producer_id;
+
+    @Override
+    public String toString() {
+        return String.format("Snack: %s, type: %s, price: %sc, id %s, producer id: %s",
+                trademark,
+                type,
+                price,
+                id,
+                producer_id
+        );
+    }
 }

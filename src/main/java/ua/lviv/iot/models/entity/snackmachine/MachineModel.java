@@ -21,4 +21,13 @@ public class MachineModel {
     @Column(name = "electricity_consumption_wh")
     @NotNull
     private Integer electricityConsumption;
+
+    @Override
+    public String toString() {
+        return String.format("Model: %s, capacity: %s, electricity consumption: %s wh",
+                model,
+                capacity,
+                electricityConsumption
+        );
+    }
 }

@@ -52,6 +52,7 @@ public class View {
         optionsMap.put("show-tables", viewOptions::printAvailableTables);
         optionsMap.put("current-table", viewOptions::printCurrentTable);
         optionsMap.put("choose-table", viewOptions::chooseTable);
+        optionsMap.put("describe", viewOptions::describeTable);
         optionsMap.put("get-all", viewOptions::getAllContent);
         optionsMap.put("get", viewOptions::getById);
         optionsMap.put("create", viewOptions::create);

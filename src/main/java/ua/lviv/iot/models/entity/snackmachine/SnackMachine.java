@@ -28,4 +28,14 @@ public class SnackMachine {
     @Column(name = "full_adress_id")
     @NotNull
     private Integer fullAddressId;
+
+    @Override
+    public String toString() {
+        return String.format("Machine id: %s, model: %s, producer id: %s, address id: %s",
+                id,
+                modelId,
+                producerId,
+                fullAddressId
+        );
+    }
 }

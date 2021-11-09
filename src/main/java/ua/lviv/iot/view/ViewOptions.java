@@ -8,6 +8,8 @@ import ua.lviv.iot.models.entity.snack.*;
 import ua.lviv.iot.models.entity.snackmachine.*;
 import ua.lviv.iot.view.exceptions.*;
 
+import javax.persistence.Column;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class ViewOptions {
                     .append(" help, h - display help menu\n")
                     .append(" show-tables - show all available tables\n")
                     .append(" current-table - display current table\n")
+                    .append(" describe - display fields of current table\n")
                     .append(" choose-table <table-name> - change table\n")
                     .append(" get-all - display contents of the table\n")
                     .append(" get <id> - get element from the table by it's id value\n")
@@ -56,10 +59,7 @@ public class ViewOptions {
                 throw  new TableNotChosenException();
             }
             List<?> entities = currentController.getAll();
-            if (entities == null) {
-                System.out.println("Nothing found");
-            }
-            else if (entities.size() == 0) {
+            if (entities.size() == 0) {
                 System.out.printf("Table %s is empty\n", currentEntity.getSimpleName());
             }
             else {
@@ -68,6 +68,9 @@ public class ViewOptions {
         }
         catch (ViewException e) {
             System.out.println(e.getMessage());
+        }
+        catch (NullPointerException e) {
+            System.out.printf("Cannot get data from table '%s'\n", currentEntity.getSimpleName());
         }
     }
 
@@ -174,6 +177,26 @@ public class ViewOptions {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public void describeTable(List<String > params) {
+        try {
+            validateParamsNum(params.size(), 0);
+            if (isTableChosen()) {
+                System.out.printf("Current table: %s\n", currentEntity.getSimpleName());
+                for (Field field: currentEntity.getDeclaredFields()) {
+                    if (field.isAnnotationPresent(Column.class)) {
+                        System.out.printf("\t%s - %s\n", field.getName(), field.getType().getSimpleName());
+                    }
+                }
+            }
+            else {
+                throw new TableNotChosenException();
+            }
+        }
+        catch (ViewException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void printCurrentTable(List<String> params) {

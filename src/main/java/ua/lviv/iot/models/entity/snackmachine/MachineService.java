@@ -29,4 +29,18 @@ public class MachineService {
 
     @Column(name = "loaded_coins")
     private Integer loadedCoins;
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Machine id: %s, last load: %s, cash gathering: %s, gathered: %s c, coins load: %s, loaded: %s c",
+                machineId,
+                (lastLoad != null ? lastLoad.toString() : "-"),
+                (lastCashGathering != null ? lastCashGathering.toString() : "-"),
+                (gatheredCash != null ? gatheredCash : "0"),
+                (lastCoinLoad != null ? lastCoinLoad : "-"),
+                (loadedCoins != null ? loadedCoins : "0")
+
+        );
+    }
 }
