@@ -92,7 +92,7 @@ public class Manager<Entity, Id> {
         Entity entity = managedClass.getConstructor().newInstance();
 
         for (Field field: inputableFields) {
-            System.out.printf("Please, enter %s %s value:%n", entity.getClass().getSimpleName(), field.getName());
+            System.out.printf("Please, enter %s %s value:\n", entity.getClass().getSimpleName(), field.getName());
             String fieldValue =  input.nextLine();
             if (fieldValue.trim().equals("")) {
                 setColumnValueByName(entity, field, null);

@@ -151,7 +151,7 @@ public class GeneralDao<Entity, Id> implements AbstractDao<Entity, Id> {
     }
 
     private void printErrorMessage(Exception e) {
-        System.out.printf("An exception occurred during query execution: %s%n", e.getMessage());
+        System.out.printf("An exception occurred during query execution: %s\n", e.getMessage());
     }
 
     public Manager<Entity, Id> getManager() {
