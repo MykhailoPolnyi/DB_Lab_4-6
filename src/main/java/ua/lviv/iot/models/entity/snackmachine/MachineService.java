@@ -2,12 +2,11 @@ package ua.lviv.iot.models.entity.snackmachine;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
+@Entity
 @Table(name = "machine_service")
 public class MachineService {
 
@@ -29,6 +28,10 @@ public class MachineService {
 
     @Column(name = "loaded_coins")
     private Integer loadedCoins;
+
+    @OneToOne
+    @PrimaryKeyJoinColumn(name = "snack_machine_id", referencedColumnName = "id")
+    private SnackMachine snackMachine;
 
     @Override
     public String toString() {
