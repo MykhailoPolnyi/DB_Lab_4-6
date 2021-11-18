@@ -35,9 +35,9 @@ public class SnackProducer {
 
     @Override
     public String toString() {
-        return String.format("Producer: %s, id: %s, email: %s, mobile phone: %s, %s",
-                name,
+        return String.format("Id: %2d, Producer: %s, email: %s, mobile phone: %s, %s",
                 id,
+                name,
                 email,
                 mobilePhone,
                 fullAddress.toString()

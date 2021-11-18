@@ -39,13 +39,13 @@ public class Loader {
 
     @Override
     public String toString() {
-        return String.format("Name: %s, Surname: %s, mobile phone: %s, company: %s, email: %s, id: %s, Address: %s",
+        return String.format("Id: %2d, Name: %s, Surname: %s, mobile phone: %s, company: %s, email: %s, Address: %s",
+                id,
                 name,
                 surname,
                 (mobilePhone != null ? mobilePhone : "-"),
                 (company != null ? company : "-"),
                 (email != null ? email : "-"),
-                id,
                 (fullAddress != null ? fullAddress.toString() : "-")
         );
     }

@@ -32,11 +32,11 @@ public class Snack {
 
     @Override
     public String toString() {
-        return String.format("Snack: %s, type: %s, price: %sc, id %s, producer: %s",
+        return String.format("Id: %2d, Snack: %s, type: %s, price: %sc, producer: %s",
+                id,
                 trademark,
                 type,
                 price,
-                id,
                 snackProducer.getName()
         );
     }

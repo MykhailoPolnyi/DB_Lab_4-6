@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
-import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.JoinColumn;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

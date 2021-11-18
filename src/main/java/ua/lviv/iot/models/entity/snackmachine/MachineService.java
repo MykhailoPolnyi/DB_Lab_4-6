@@ -38,7 +38,7 @@ public class MachineService {
     @Override
     public String toString() {
         return String.format(
-                "Machine id: %s, last load: %s, cash gathering: %s, gathered: %s c, coins load: %s, loaded: %s c",
+                "Machine id: %2d, last load: %s, cash gathering: %s, gathered: %s c, coins load: %s, loaded: %s c",
                 machineId,
                 (lastLoad != null ? lastLoad.toString() : "-"),
                 (lastCashGathering != null ? lastCashGathering.toString() : "-"),

@@ -40,9 +40,9 @@ public class MachineProducer {
 
     @Override
     public String toString() {
-        return String.format("Producer: %s, id: %s, email: %s, mobile phone: %s, Address: %s",
-                name,
+        return String.format("Id: %2d, Producer: %s, email: %s, mobile phone: %s, Address: %s",
                 id,
+                name,
                 email,
                 mobilePhone,
                 fullAddress.toString()

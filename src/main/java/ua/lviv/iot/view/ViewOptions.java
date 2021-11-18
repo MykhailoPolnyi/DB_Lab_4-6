@@ -113,13 +113,16 @@ public class ViewOptions {
             if (!isTableChosen()) {
                 throw new TableNotChosenException("Please, choose table before updating an object\n");
             }
-            if (currentController.update()){
+            if (currentController.update(params.get(0))){
                 System.out.printf("Successfully updated object with id=%s\n", params.get(0));
             } else {
                 System.out.println("Object update failed\n");
             }
         } catch (ViewException e) {
             System.out.println(e.getMessage());
+        }
+        catch (NumberFormatException e) {
+            System.out.printf("Cannot convert passed value to Id: %s\n", params.get(0));
         }
     }
 
@@ -136,6 +139,9 @@ public class ViewOptions {
             }
         } catch (ViewException e) {
             System.out.println(e.getMessage());
+        }
+        catch (NumberFormatException e) {
+            System.out.printf("Cannot convert passed value to Id: %s\n", params.get(0));
         }
     }
 

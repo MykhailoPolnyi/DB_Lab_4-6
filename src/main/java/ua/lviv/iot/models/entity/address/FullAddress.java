@@ -26,10 +26,10 @@ public class FullAddress {
     @Override
     public String toString() {
         return String.format(
-                "Street: %s, %s, Address id: %s, %s",
+                "Address id: %2d, Street: %s, %s, %s",
+                id,
                 (street != null ? street : "unknown"),
                 (number != null ? number : "-"),
-                id,
                 city.toString()
         );
     }

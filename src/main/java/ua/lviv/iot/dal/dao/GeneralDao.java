@@ -73,9 +73,9 @@ public class GeneralDao<Entity, Id extends Serializable> implements AbstractDao<
             Transaction transaction = session.beginTransaction();
             session.update(updItem);
             transaction.commit();
+            return true;
         } catch (Exception e) {
-            System.out.println("An error occurred during updating a row:");
-            e.printStackTrace();
+            System.out.println("An error occurred during updating a row: " + e.getMessage());
         }
         return false;
     }
@@ -96,8 +96,7 @@ public class GeneralDao<Entity, Id extends Serializable> implements AbstractDao<
             return true;
         }
         catch (Exception e) {
-            System.out.println("An error occurred during deleting a table:");
-            e.printStackTrace();
+            System.out.println("An error occurred during deleting a table: " + e.getMessage());
             return false;
         }
     }

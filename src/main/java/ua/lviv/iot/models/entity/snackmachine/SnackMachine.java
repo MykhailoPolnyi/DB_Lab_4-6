@@ -33,7 +33,7 @@ public class SnackMachine {
 
     @Override
     public String toString() {
-        return String.format("Machine id: %s, model: %s, producer: %s, Address: %s",
+        return String.format("Machine id: %2d, model: %s, producer: %s, Address: %s",
                 id,
                 machineModel.getModel(),
                 machineProducer.getName(),

@@ -7,12 +7,15 @@ import ua.lviv.iot.models.manager.Manager;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Scanner;
 
 
-public class GeneralController<Entity, Id extends Serializable> implements AbstractController<Entity> {
+public abstract class GeneralController<Entity, Id extends Serializable> implements AbstractController<Entity> {
     private final GeneralDao<Entity, Id> dao;
     @Getter
     private final Manager<Entity, Integer> manager;
+    protected final Scanner input = new Scanner(System.in);
+
 
     public GeneralController(GeneralDao<Entity, Id> dao) {
         this.dao = dao;
@@ -32,7 +35,7 @@ public class GeneralController<Entity, Id extends Serializable> implements Abstr
     @Override
     public boolean create() {
         try {
-            Entity createdItem = manager.createEntity();
+            Entity createdItem = createNewEntity();
             return dao.create(createdItem);
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             System.out.println("An error occurred during entity creation");
@@ -41,9 +44,9 @@ public class GeneralController<Entity, Id extends Serializable> implements Abstr
     }
 
     @Override
-    public boolean update() {
+    public boolean update(String stringId) {
         try {
-            Entity updItem = manager.updateEntity();
+            Entity updItem = createUpdEntity(stringId);
             return dao.update(updItem);
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             System.out.println("An error occurred during setting field(s) value");
@@ -54,5 +57,17 @@ public class GeneralController<Entity, Id extends Serializable> implements Abstr
     @Override
     public boolean delete(String idString) {
         return dao.delete((Id) manager.stringIdToPk(idString));
+    }
+
+    @Override
+    public Entity createNewEntity()
+            throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return manager.createEntity();
+    }
+
+    @Override
+    public Entity createUpdEntity(String stringId)
+            throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return manager.updateEntity();
     }
 }

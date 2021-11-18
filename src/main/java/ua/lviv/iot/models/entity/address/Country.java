@@ -22,6 +22,6 @@ public class Country {
 
     @Override
     public String toString() {
-        return String.format("Country: %s, Country id: %s", name, id);
+        return String.format("Country id: %2d, Country: %s", id, name);
     }
 }
