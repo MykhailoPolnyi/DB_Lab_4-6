@@ -1,13 +1,8 @@
-package ua.lviv.iot.models.entity.adress;
+package ua.lviv.iot.models.entity.address;
 
 import lombok.Data;
-import ua.lviv.iot.models.entity.loader.Loader;
-import ua.lviv.iot.models.entity.snack.SnackProducer;
-import ua.lviv.iot.models.entity.snackmachine.MachineProducer;
-import ua.lviv.iot.models.entity.snackmachine.SnackMachine;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @Entity
@@ -28,24 +23,12 @@ public class FullAddress {
     @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
     private City city;
 
-    @OneToMany(mappedBy = "fullAddress")
-    private Set<Loader> loaders;
-/*
-    @OneToMany(mappedBy = "fullAddress")
-    private Set<SnackProducer> snackProducers;
-
-    @OneToMany(mappedBy = "fullAddress")
-    private Set<MachineProducer> machineProducers;
-
-    @OneToMany(mappedBy = "fullAddress")
-    private Set<SnackMachine> snackMachines;
-*/
     @Override
     public String toString() {
         return String.format(
                 "Street: %s, %s, Address id: %s, %s",
                 (street != null ? street : "unknown"),
-                (number != null ? number : "unknown"),
+                (number != null ? number : "-"),
                 id,
                 city.toString()
         );

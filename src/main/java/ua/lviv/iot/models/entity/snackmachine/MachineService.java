@@ -14,6 +14,11 @@ public class MachineService {
     @Column(name = "snack_machine_id")
     private Integer machineId;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "snack_machine_id")
+    private SnackMachine snackMachine;
+
     @Column(name = "last_load")
     private LocalDate lastLoad;
 
@@ -29,9 +34,6 @@ public class MachineService {
     @Column(name = "loaded_coins")
     private Integer loadedCoins;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "snack_machine_id", referencedColumnName = "id")
-    private SnackMachine snackMachine;
 
     @Override
     public String toString() {

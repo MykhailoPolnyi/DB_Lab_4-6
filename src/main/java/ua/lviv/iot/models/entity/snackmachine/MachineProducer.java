@@ -1,7 +1,7 @@
 package ua.lviv.iot.models.entity.snackmachine;
 
 import lombok.Data;
-import ua.lviv.iot.models.entity.adress.FullAddress;
+import ua.lviv.iot.models.entity.address.FullAddress;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -36,11 +36,11 @@ public class MachineProducer {
     @JoinTable(name = "producer_model",
     joinColumns = @JoinColumn(name = "machine_model"),
     inverseJoinColumns = @JoinColumn(name = "machine_producer_id"))
-    private Set<MachineModel> machineModels;
+    private Set<MachineModel> producedMachineModels;
 
     @Override
     public String toString() {
-        return String.format("Producer: %s, id: %s, email: %s, mobile phone: %s, %s",
+        return String.format("Producer: %s, id: %s, email: %s, mobile phone: %s, Address: %s",
                 name,
                 id,
                 email,

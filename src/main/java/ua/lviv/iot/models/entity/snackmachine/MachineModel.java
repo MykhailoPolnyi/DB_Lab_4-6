@@ -22,7 +22,7 @@ public class MachineModel {
     @NotNull
     private Integer electricityConsumption;
 
-    @ManyToMany(mappedBy = "machineModels")
+    @ManyToMany(mappedBy = "producedMachineModels")
     private Set<MachineProducer> machineProducers;
 
     @Override

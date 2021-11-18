@@ -1,11 +1,10 @@
-package ua.lviv.iot.models.entity.adress;
+package ua.lviv.iot.models.entity.address;
 
 import lombok.Data;
 
 import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Data
 @Entity
@@ -28,9 +27,6 @@ public class City {
     @ManyToOne
     @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
     private Country country;
-
-    @OneToMany(mappedBy = "city")
-    private Set<FullAddress> addresses;
 
     @Override
     public String toString() {

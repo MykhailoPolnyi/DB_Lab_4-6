@@ -1,7 +1,7 @@
 package ua.lviv.iot.models.entity.snack;
 
 import lombok.Data;
-import ua.lviv.iot.models.entity.adress.FullAddress;
+import ua.lviv.iot.models.entity.address.FullAddress;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,7 +31,7 @@ public class SnackProducer {
     private FullAddress fullAddress;
 
     @OneToMany(mappedBy = "snackProducer")
-    private Set<Snack> snacks;
+    private Set<Snack> producedSnacks;
 
     @Override
     public String toString() {

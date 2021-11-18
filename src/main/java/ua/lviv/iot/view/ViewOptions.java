@@ -2,7 +2,7 @@ package ua.lviv.iot.view;
 
 import ua.lviv.iot.controller.GeneralController;
 import ua.lviv.iot.controller.entites.*;
-import ua.lviv.iot.models.entity.adress.*;
+import ua.lviv.iot.models.entity.address.*;
 import ua.lviv.iot.models.entity.loader.Loader;
 import ua.lviv.iot.models.entity.snack.*;
 import ua.lviv.iot.models.entity.snackmachine.*;
@@ -80,7 +80,11 @@ public class ViewOptions {
             System.out.println(currentController.getById(params.get(0)).toString());
         } catch (ViewException e) {
             System.out.println(e.getMessage());
-        } catch (NullPointerException e) {
+        }
+        catch (NumberFormatException e) {
+            System.out.printf("Cannot convert passed value to Id: %s\n", params.get(0));
+        }
+        catch (NullPointerException e) {
             System.out.printf("Cannot found element with id = %s\n", params.get(0));
         }
     }
@@ -109,7 +113,7 @@ public class ViewOptions {
             if (!isTableChosen()) {
                 throw new TableNotChosenException("Please, choose table before updating an object\n");
             }
-            if (currentController.update(params.get(0))){
+            if (currentController.update()){
                 System.out.printf("Successfully updated object with id=%s\n", params.get(0));
             } else {
                 System.out.println("Object update failed\n");
@@ -215,7 +219,7 @@ public class ViewOptions {
     private void setAvailableEntities() {
         availableEntities.put("city", City.class);
         availableEntities.put("country", Country.class);
-        availableEntities.put("full-adress", FullAddress.class);
+        availableEntities.put("full-address", FullAddress.class);
         availableEntities.put("loader", Loader.class);
         availableEntities.put("snack", Snack.class);
         availableEntities.put("snack-producer", SnackProducer.class);
@@ -228,7 +232,7 @@ public class ViewOptions {
     private void setTableControllers() {
         tableControllers.put("city", new CityController());
         tableControllers.put("country", new CountryController());
-        tableControllers.put("full-adress", new FullAddressController());
+        tableControllers.put("full-address", new FullAddressController());
         tableControllers.put("loader", new LoaderController());
         tableControllers.put("snack", new SnackController());
         tableControllers.put("snack-producer", new SnackProducerController());

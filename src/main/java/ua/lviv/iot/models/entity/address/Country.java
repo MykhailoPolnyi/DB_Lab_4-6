@@ -1,4 +1,4 @@
-package ua.lviv.iot.models.entity.adress;
+package ua.lviv.iot.models.entity.address;
 
 import lombok.Data;
 
@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Data
 @Entity
@@ -20,9 +19,6 @@ public class Country {
     @Column(name = "name", nullable = false, length = 45)
     @NotNull
     private String name;
-
-    @OneToMany(mappedBy = "country")
-    private Set<City> cities;
 
     @Override
     public String toString() {

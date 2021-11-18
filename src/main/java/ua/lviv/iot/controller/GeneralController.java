@@ -1,19 +1,22 @@
 package ua.lviv.iot.controller;
 
+import lombok.Getter;
 import ua.lviv.iot.dal.dao.GeneralDao;
 import ua.lviv.iot.models.manager.Manager;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 
-public class GeneralController<Entity, Id> implements AbstractController<Entity, Id> {
+public class GeneralController<Entity, Id extends Serializable> implements AbstractController<Entity> {
     private final GeneralDao<Entity, Id> dao;
-    private final Manager<Entity, Id> manager;
+    @Getter
+    private final Manager<Entity, Integer> manager;
 
     public GeneralController(GeneralDao<Entity, Id> dao) {
         this.dao = dao;
-        this.manager = dao.getManager();
+        this.manager = new Manager<>(dao.getEntityClass());
     }
 
     @Override
@@ -23,7 +26,7 @@ public class GeneralController<Entity, Id> implements AbstractController<Entity,
 
     @Override
     public Entity getById(String idString) {
-        return dao.getById((Id) idString);
+        return dao.getById((Id) manager.stringIdToPk(idString));
     }
 
     @Override
@@ -38,10 +41,10 @@ public class GeneralController<Entity, Id> implements AbstractController<Entity,
     }
 
     @Override
-    public boolean update(String idString) {
+    public boolean update() {
         try {
-            Entity updItem = manager.createEntity();
-            return dao.update((Id) idString, updItem);
+            Entity updItem = manager.updateEntity();
+            return dao.update(updItem);
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             System.out.println("An error occurred during setting field(s) value");
             return false;
@@ -50,6 +53,6 @@ public class GeneralController<Entity, Id> implements AbstractController<Entity,
 
     @Override
     public boolean delete(String idString) {
-        return dao.delete((Id) idString);
+        return dao.delete((Id) manager.stringIdToPk(idString));
     }
 }

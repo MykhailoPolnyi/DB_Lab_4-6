@@ -1,7 +1,7 @@
 package ua.lviv.iot.models.entity.loader;
 
 import lombok.Data;
-import ua.lviv.iot.models.entity.adress.FullAddress;
+import ua.lviv.iot.models.entity.address.FullAddress;
 
 import javax.persistence.*;
 
@@ -39,7 +39,7 @@ public class Loader {
 
     @Override
     public String toString() {
-        return String.format("Name: %s, Surname: %s, mobile phone: %s, company: %s, email: %s, id: %s, %s",
+        return String.format("Name: %s, Surname: %s, mobile phone: %s, company: %s, email: %s, id: %s, Address: %s",
                 name,
                 surname,
                 (mobilePhone != null ? mobilePhone : "-"),

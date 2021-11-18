@@ -1,7 +1,7 @@
 package ua.lviv.iot.models.entity.snackmachine;
 
 import lombok.Data;
-import ua.lviv.iot.models.entity.adress.FullAddress;
+import ua.lviv.iot.models.entity.address.FullAddress;
 
 import javax.persistence.*;
 
@@ -14,7 +14,8 @@ public class SnackMachine {
     @Column(name = "id")
     private Integer id;
 
-    @OneToOne(mappedBy = "snackMachine")
+    @OneToOne(mappedBy = "snackMachine", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private MachineService machineService;
 
     @ManyToOne
@@ -29,9 +30,10 @@ public class SnackMachine {
     @JoinColumn(name = "machine_model", referencedColumnName = "model", nullable = false)
     private MachineModel machineModel;
 
+
     @Override
     public String toString() {
-        return String.format("Machine id: %s, model: %s, producer: %s, %s",
+        return String.format("Machine id: %s, model: %s, producer: %s, Address: %s",
                 id,
                 machineModel.getModel(),
                 machineProducer.getName(),
