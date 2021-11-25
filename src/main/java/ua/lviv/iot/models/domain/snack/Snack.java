@@ -1,5 +1,6 @@
 package ua.lviv.iot.models.domain.snack;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "snack")
+@Builder
 public class Snack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

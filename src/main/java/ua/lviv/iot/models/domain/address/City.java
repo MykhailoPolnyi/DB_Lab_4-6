@@ -1,6 +1,9 @@
 package ua.lviv.iot.models.domain.address;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -8,6 +11,9 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "city")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class City {
 
     @Id

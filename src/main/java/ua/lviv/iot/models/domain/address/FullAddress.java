@@ -1,12 +1,18 @@
 package ua.lviv.iot.models.domain.address;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "full_adress")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FullAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

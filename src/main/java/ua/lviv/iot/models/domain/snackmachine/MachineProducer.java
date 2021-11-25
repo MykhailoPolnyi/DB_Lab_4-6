@@ -1,5 +1,6 @@
 package ua.lviv.iot.models.domain.snackmachine;
 
+import lombok.Builder;
 import lombok.Data;
 import ua.lviv.iot.models.domain.address.FullAddress;
 
@@ -9,6 +10,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "machine_producer")
+@Builder
 public class MachineProducer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
