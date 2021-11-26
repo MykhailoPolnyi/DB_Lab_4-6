@@ -5,7 +5,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CountryDTO {
+public class CityDto {
     private Integer id;
     private String name;
+    private String country;
+    private String region;
 }

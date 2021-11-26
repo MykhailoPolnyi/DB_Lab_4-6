@@ -1,11 +1,11 @@
-package ua.lviv.iot.models.converter;
+package ua.lviv.iot.models.converter.loader;
 
 import ua.lviv.iot.models.domain.loader.Loader;
-import ua.lviv.iot.models.dto.loader.LoaderDTO;
+import ua.lviv.iot.models.dto.loader.LoaderDto;
 
 public class LoaderConverter {
-    public static LoaderDTO toDTO(Loader loader) {
-        LoaderDTO convertedDto = LoaderDTO.builder()
+    public static LoaderDto toDTO(Loader loader) {
+        LoaderDto convertedDto = LoaderDto.builder()
                 .id(loader.getId())
                 .name(loader.getName())
                 .surname(loader.getSurname())

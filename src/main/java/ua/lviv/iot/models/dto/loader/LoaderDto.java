@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class LoaderDTO {
+public class LoaderDto {
     private Integer id;
     private String name;
     private String surname;

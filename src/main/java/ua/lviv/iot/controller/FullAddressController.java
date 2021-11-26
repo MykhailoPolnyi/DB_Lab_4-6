@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.lviv.iot.models.converter.FullAddressConverter;
+import ua.lviv.iot.models.converter.address.FullAddressConverter;
 import ua.lviv.iot.models.domain.address.FullAddress;
-import ua.lviv.iot.models.dto.adress.FullAddressDTO;
+import ua.lviv.iot.models.dto.adress.FullAddressDto;
 import ua.lviv.iot.service.CityService;
 import ua.lviv.iot.service.FullAddressService;
 
@@ -24,8 +24,8 @@ public class FullAddressController {
     CityService cityService;
 
     @GetMapping
-    public ResponseEntity<List<FullAddressDTO>> getAddressList() {
-        List<FullAddressDTO> responseFullAddressDtoList = new LinkedList<>();
+    public ResponseEntity<List<FullAddressDto>> getAddressList() {
+        List<FullAddressDto> responseFullAddressDtoList = new LinkedList<>();
         for (FullAddress fullAddress: fullAddressService.getAll()) {
             responseFullAddressDtoList.add(FullAddressConverter.toDTO(fullAddress));
         }
@@ -33,7 +33,7 @@ public class FullAddressController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<FullAddressDTO> getAddress(@PathVariable Integer id) {
+    public ResponseEntity<FullAddressDto> getAddress(@PathVariable Integer id) {
         try {
             FullAddress searchedFullAddress = fullAddressService.getById(id);
             return new ResponseEntity<>(FullAddressConverter.toDTO(searchedFullAddress), HttpStatus.OK);
@@ -43,7 +43,7 @@ public class FullAddressController {
     }
 
     @PostMapping
-    public ResponseEntity<FullAddressDTO> postAddress(@RequestBody FullAddressDTO addressDto) {
+    public ResponseEntity<FullAddressDto> postAddress(@RequestBody FullAddressDto addressDto) {
         try {
             FullAddress createdFullAddress = FullAddress.builder()
                     .street(addressDto.getStreet())
@@ -58,7 +58,7 @@ public class FullAddressController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<FullAddressDTO> putAddress(@RequestBody FullAddressDTO addressDTO, @PathVariable Integer id) {
+    public ResponseEntity<FullAddressDto> putAddress(@RequestBody FullAddressDto addressDTO, @PathVariable Integer id) {
         try {
             FullAddress updatedFullAddress = FullAddress.builder()
                     .street(addressDTO.getStreet())
@@ -76,7 +76,7 @@ public class FullAddressController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<FullAddressDTO> deleteAddress(@PathVariable Integer id) {
+    public ResponseEntity<FullAddressDto> deleteAddress(@PathVariable Integer id) {
         try {
             fullAddressService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

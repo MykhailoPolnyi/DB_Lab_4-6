@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.lviv.iot.models.converter.CityConverter;
+import ua.lviv.iot.models.converter.address.CityConverter;
 import ua.lviv.iot.models.domain.address.City;
-import ua.lviv.iot.models.dto.adress.CityDTO;
+import ua.lviv.iot.models.dto.adress.CityDto;
 import ua.lviv.iot.service.CityService;
 import ua.lviv.iot.service.CountryService;
 
@@ -24,8 +24,8 @@ public class CityController {
     CountryService countryService;
 
     @GetMapping
-    public ResponseEntity<List<CityDTO>> getCityList() {
-        List<CityDTO> responseCityDtoList = new ArrayList<>();
+    public ResponseEntity<List<CityDto>> getCityList() {
+        List<CityDto> responseCityDtoList = new ArrayList<>();
         for (City city: cityService.getAll()) {
             responseCityDtoList.add(CityConverter.toDTO(city));
         }
@@ -33,7 +33,7 @@ public class CityController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<CityDTO> getCity(@PathVariable Integer id) {
+    public ResponseEntity<CityDto> getCity(@PathVariable Integer id) {
         try {
             City searchedCity = cityService.getById(id);
             return new ResponseEntity<>(CityConverter.toDTO(searchedCity), HttpStatus.OK);
@@ -43,7 +43,7 @@ public class CityController {
     }
 
     @PostMapping
-    public ResponseEntity<CityDTO> postCity(@RequestBody CityDTO cityDto) {
+    public ResponseEntity<CityDto> postCity(@RequestBody CityDto cityDto) {
         City createdCity = City.builder()
                 .name(cityDto.getName())
                 .region(cityDto.getRegion())
@@ -54,7 +54,7 @@ public class CityController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<CityDTO> putCity(@RequestBody CityDTO cityDto, @PathVariable Integer id) {
+    public ResponseEntity<CityDto> putCity(@RequestBody CityDto cityDto, @PathVariable Integer id) {
         try {
             City updatedCityValues = City.builder()
                     .name(cityDto.getName())
@@ -70,7 +70,7 @@ public class CityController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<CityDTO> deleteCity(@PathVariable Integer id) {
+    public ResponseEntity<CityDto> deleteCity(@PathVariable Integer id) {
         try {
             cityService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

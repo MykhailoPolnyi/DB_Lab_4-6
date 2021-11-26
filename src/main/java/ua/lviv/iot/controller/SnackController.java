@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.lviv.iot.models.converter.SnackConverter;
+import ua.lviv.iot.models.converter.snack.SnackConverter;
 import ua.lviv.iot.models.domain.snack.Snack;
-import ua.lviv.iot.models.dto.snack.SnackDTO;
+import ua.lviv.iot.models.dto.snack.SnackDto;
 import ua.lviv.iot.service.SnackProducerService;
 import ua.lviv.iot.service.SnackService;
 
@@ -24,8 +24,8 @@ public class SnackController {
     SnackProducerService snackProducerService;
 
     @GetMapping
-    public ResponseEntity<List<SnackDTO>> getSnackList() {
-        List<SnackDTO> responseSnackDtoList = new LinkedList<>();
+    public ResponseEntity<List<SnackDto>> getSnackList() {
+        List<SnackDto> responseSnackDtoList = new LinkedList<>();
         for (Snack snack: snackService.getAll()) {
             responseSnackDtoList.add(SnackConverter.toDTO(snack));
         }
@@ -33,7 +33,7 @@ public class SnackController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<SnackDTO> getSnack(@PathVariable Integer id) {
+    public ResponseEntity<SnackDto> getSnack(@PathVariable Integer id) {
         try {
             Snack searchedSnack = snackService.getById(id);
             return new ResponseEntity<>(SnackConverter.toDTO(searchedSnack), HttpStatus.CREATED);
@@ -43,7 +43,7 @@ public class SnackController {
     }
 
     @PostMapping
-    public ResponseEntity<SnackDTO> postSnack(@RequestBody SnackDTO snackDTO) {
+    public ResponseEntity<SnackDto> postSnack(@RequestBody SnackDto snackDTO) {
         Snack createdSnack = Snack.builder()
                 .trademark(snackDTO.getTrademark())
                 .type(snackDTO.getType())
@@ -59,7 +59,7 @@ public class SnackController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<SnackDTO> putSnack(@RequestBody SnackDTO snackDTO, @PathVariable Integer id) {
+    public ResponseEntity<SnackDto> putSnack(@RequestBody SnackDto snackDTO, @PathVariable Integer id) {
         Snack updatedSnack = Snack.builder()
                 .trademark(snackDTO.getTrademark())
                 .type(snackDTO.getType())
@@ -76,7 +76,7 @@ public class SnackController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<SnackDTO> deleteSnack(@PathVariable Integer id) {
+    public ResponseEntity<SnackDto> deleteSnack(@PathVariable Integer id) {
         try {
             snackService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

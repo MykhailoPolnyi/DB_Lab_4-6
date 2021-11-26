@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.lviv.iot.models.converter.LoaderConverter;
+import ua.lviv.iot.models.converter.loader.LoaderConverter;
 import ua.lviv.iot.models.domain.loader.Loader;
-import ua.lviv.iot.models.dto.loader.LoaderDTO;
+import ua.lviv.iot.models.dto.loader.LoaderDto;
 import ua.lviv.iot.service.FullAddressService;
 import ua.lviv.iot.service.LoaderService;
 
@@ -24,8 +24,8 @@ public class LoaderController {
     FullAddressService fullAddressService;
 
     @GetMapping
-    public ResponseEntity<List<LoaderDTO>> getLoaderList() {
-        List<LoaderDTO> responseLoaderDtoList = new LinkedList<>();
+    public ResponseEntity<List<LoaderDto>> getLoaderList() {
+        List<LoaderDto> responseLoaderDtoList = new LinkedList<>();
         for (Loader loader: loaderService.getAll()) {
             responseLoaderDtoList.add(LoaderConverter.toDTO(loader));
         }
@@ -33,7 +33,7 @@ public class LoaderController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<LoaderDTO> getLoader(@PathVariable Integer id) {
+    public ResponseEntity<LoaderDto> getLoader(@PathVariable Integer id) {
         try {
             Loader searchedLoader = loaderService.getById(id);
             return new ResponseEntity<>(LoaderConverter.toDTO(searchedLoader), HttpStatus.OK);
@@ -43,7 +43,7 @@ public class LoaderController {
     }
 
     @PostMapping
-    public ResponseEntity<LoaderDTO> createLoader(@RequestBody LoaderDTO loaderDTO) {
+    public ResponseEntity<LoaderDto> createLoader(@RequestBody LoaderDto loaderDTO) {
         Loader createdLoader = Loader.builder()
                 .name(loaderDTO.getName())
                 .surname(loaderDTO.getSurname())
@@ -63,7 +63,7 @@ public class LoaderController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<LoaderDTO> updateLoader(@RequestBody LoaderDTO loaderDTO, @PathVariable Integer id) {
+    public ResponseEntity<LoaderDto> updateLoader(@RequestBody LoaderDto loaderDTO, @PathVariable Integer id) {
         try {
             Loader updatedLoader = Loader.builder()
                     .name(loaderDTO.getName())
@@ -87,7 +87,7 @@ public class LoaderController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<LoaderDTO> deleteLoader(@PathVariable Integer id) {
+    public ResponseEntity<LoaderDto> deleteLoader(@PathVariable Integer id) {
         try {
             loaderService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

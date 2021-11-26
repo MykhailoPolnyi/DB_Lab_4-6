@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.lviv.iot.models.converter.CountryConverter;
+import ua.lviv.iot.models.converter.address.CountryConverter;
 import ua.lviv.iot.models.domain.address.Country;
-import ua.lviv.iot.models.dto.adress.CountryDTO;
+import ua.lviv.iot.models.dto.adress.CountryDto;
 import ua.lviv.iot.service.CountryService;
 
 import java.util.LinkedList;
@@ -20,8 +20,8 @@ public class CountryController {
     private CountryService countryService;
 
     @GetMapping
-    public ResponseEntity<List<CountryDTO>> getCountryList() {
-        List<CountryDTO> responseCountryDtoList = new LinkedList<>();
+    public ResponseEntity<List<CountryDto>> getCountryList() {
+        List<CountryDto> responseCountryDtoList = new LinkedList<>();
         for (Country country: countryService.getAll()) {
             responseCountryDtoList.add(CountryConverter.toDTO(country));
         }
@@ -29,10 +29,10 @@ public class CountryController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<CountryDTO> getCountry(@PathVariable Integer id) {
+    public ResponseEntity<CountryDto> getCountry(@PathVariable Integer id) {
         try {
             Country searchedCountry = countryService.getById(id);
-            CountryDTO responseCountryDto = CountryConverter.toDTO(searchedCountry);
+            CountryDto responseCountryDto = CountryConverter.toDTO(searchedCountry);
             return new ResponseEntity<>(responseCountryDto, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -40,7 +40,7 @@ public class CountryController {
     }
 
     @PostMapping
-    public ResponseEntity<CountryDTO> postCountry(@RequestBody CountryDTO countryDto) {
+    public ResponseEntity<CountryDto> postCountry(@RequestBody CountryDto countryDto) {
         Country createdCountry = Country.builder()
                 .name(countryDto.getName())
                 .build();
@@ -49,7 +49,7 @@ public class CountryController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<CountryDTO> putCountry(@PathVariable Integer id, @RequestBody CountryDTO countryDto) {
+    public ResponseEntity<CountryDto> putCountry(@PathVariable Integer id, @RequestBody CountryDto countryDto) {
         try {
             Country updatedCountryValues = Country.builder()
                     .name(countryDto.getName())

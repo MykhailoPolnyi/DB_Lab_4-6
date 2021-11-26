@@ -1,11 +1,11 @@
-package ua.lviv.iot.models.converter;
+package ua.lviv.iot.models.converter.address;
 
 import ua.lviv.iot.models.domain.address.FullAddress;
-import ua.lviv.iot.models.dto.adress.FullAddressDTO;
+import ua.lviv.iot.models.dto.adress.FullAddressDto;
 
 public class FullAddressConverter {
-    public static FullAddressDTO toDTO(FullAddress fullAddress) {
-        return FullAddressDTO.builder()
+    public static FullAddressDto toDTO(FullAddress fullAddress) {
+        return FullAddressDto.builder()
                 .id(fullAddress.getId())
                 .number(fullAddress.getNumber())
                 .street(fullAddress.getStreet())

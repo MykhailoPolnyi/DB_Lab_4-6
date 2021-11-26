@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class FullAddressDTO {
+public class FullAddressDto {
     private Integer id;
     private String street;
     private String number;

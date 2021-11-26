@@ -1,11 +1,11 @@
-package ua.lviv.iot.models.converter;
+package ua.lviv.iot.models.converter.snack;
 
 import ua.lviv.iot.models.domain.snack.Snack;
-import ua.lviv.iot.models.dto.snack.SnackDTO;
+import ua.lviv.iot.models.dto.snack.SnackDto;
 
 public class SnackConverter {
-    public static SnackDTO toDTO(Snack snack) {
-        return SnackDTO.builder()
+    public static SnackDto toDTO(Snack snack) {
+        return SnackDto.builder()
                 .id(snack.getId())
                 .trademark(snack.getTrademark())
                 .type(snack.getType())

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class SnackDTO {
+public class SnackDto {
     private Integer id;
     private String trademark;
     private String type;

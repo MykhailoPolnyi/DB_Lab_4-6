@@ -1,11 +1,11 @@
-package ua.lviv.iot.models.converter;
+package ua.lviv.iot.models.converter.address;
 
 import ua.lviv.iot.models.domain.address.Country;
-import ua.lviv.iot.models.dto.adress.CountryDTO;
+import ua.lviv.iot.models.dto.adress.CountryDto;
 
 public class CountryConverter {
-    public static CountryDTO toDTO(Country country) {
-        return CountryDTO.builder()
+    public static CountryDto toDTO(Country country) {
+        return CountryDto.builder()
                 .id(country.getId())
                 .name(country.getName())
                 .build();

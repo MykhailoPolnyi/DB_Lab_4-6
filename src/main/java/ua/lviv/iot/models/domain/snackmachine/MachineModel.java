@@ -1,7 +1,9 @@
 package ua.lviv.iot.models.domain.snackmachine;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,6 +12,8 @@ import java.util.Set;
 @Entity
 @Table(name = "machine_model")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MachineModel {
     @Id
     @Column(name = "model", length = 50)

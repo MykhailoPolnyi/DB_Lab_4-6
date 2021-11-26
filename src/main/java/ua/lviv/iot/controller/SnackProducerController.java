@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.lviv.iot.models.converter.SnackProducerConverter;
+import ua.lviv.iot.models.converter.snack.SnackProducerConverter;
 import ua.lviv.iot.models.domain.snack.SnackProducer;
-import ua.lviv.iot.models.dto.snack.SnackProducerDTO;
+import ua.lviv.iot.models.dto.snack.SnackProducerDto;
 import ua.lviv.iot.service.FullAddressService;
 import ua.lviv.iot.service.SnackProducerService;
 
@@ -25,8 +25,8 @@ public class SnackProducerController {
     FullAddressService fullAddressService;
 
     @GetMapping
-    public ResponseEntity<List<SnackProducerDTO>> getSnackProducerList() {
-        List<SnackProducerDTO> responseSnackProducerDtoList = new LinkedList<>();
+    public ResponseEntity<List<SnackProducerDto>> getSnackProducerList() {
+        List<SnackProducerDto> responseSnackProducerDtoList = new LinkedList<>();
         for (SnackProducer snackProducer: snackProducerService.getAll()) {
             responseSnackProducerDtoList.add(SnackProducerConverter.toDTO(snackProducer));
         }
@@ -34,7 +34,7 @@ public class SnackProducerController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<SnackProducerDTO> getSnackProducer(@PathVariable Integer id) {
+    public ResponseEntity<SnackProducerDto> getSnackProducer(@PathVariable Integer id) {
         try {
             SnackProducer searchedSnackProducer = snackProducerService.getById(id);
             return new ResponseEntity<>(SnackProducerConverter.toDTO(searchedSnackProducer), HttpStatus.OK);
@@ -44,7 +44,7 @@ public class SnackProducerController {
     }
 
     @PostMapping
-    public ResponseEntity<SnackProducerDTO> postSnackProducer(@RequestBody SnackProducerDTO snackProducerDTO) {
+    public ResponseEntity<SnackProducerDto> postSnackProducer(@RequestBody SnackProducerDto snackProducerDTO) {
         SnackProducer createdSnackProducer = SnackProducer.builder()
                 .name(snackProducerDTO.getName())
                 .email(snackProducerDTO.getEmail())
@@ -60,8 +60,8 @@ public class SnackProducerController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<SnackProducerDTO> putSnackProducer(
-            @RequestBody SnackProducerDTO snackProducerDTO, @PathVariable Integer id) {
+    public ResponseEntity<SnackProducerDto> putSnackProducer(
+            @RequestBody SnackProducerDto snackProducerDTO, @PathVariable Integer id) {
         try {
             SnackProducer snackProducer = SnackProducer.builder()
                     .name(snackProducerDTO.getName())
@@ -82,7 +82,7 @@ public class SnackProducerController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<SnackProducerDTO> deleteSnackProducer(@PathVariable Integer id) {
+    public ResponseEntity<SnackProducerDto> deleteSnackProducer(@PathVariable Integer id) {
         try {
             snackProducerService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
