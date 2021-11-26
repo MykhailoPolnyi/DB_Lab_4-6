@@ -25,9 +25,6 @@ public class MachineModel {
     @Column(name = "electricity_consumption_wh", nullable = false)
     private Integer electricityConsumption;
 
-    @ManyToMany(mappedBy = "producedMachineModels")
-    private Set<MachineProducer> machineProducers;
-
     @Override
     public String toString() {
         return String.format("Model: %s, capacity: %s, electricity consumption: %s wh",

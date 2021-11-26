@@ -1,7 +1,9 @@
 package ua.lviv.iot.models.domain.snackmachine;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +12,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "machine_service")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MachineService {
 
     @Id

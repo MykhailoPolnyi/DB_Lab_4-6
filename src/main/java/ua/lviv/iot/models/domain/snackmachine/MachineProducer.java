@@ -1,7 +1,9 @@
 package ua.lviv.iot.models.domain.snackmachine;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ua.lviv.iot.models.domain.address.FullAddress;
 
 import javax.persistence.*;
@@ -11,6 +13,8 @@ import java.util.Set;
 @Entity
 @Table(name = "machine_producer")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MachineProducer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +33,6 @@ public class MachineProducer {
     @ManyToOne
     @JoinColumn(name = "full_adress_id", referencedColumnName = "id", nullable = false)
     private FullAddress fullAddress;
-
-    @ManyToMany
-    @JoinTable(name = "producer_model",
-    joinColumns = @JoinColumn(name = "machine_model", columnDefinition = "varchar"),
-    inverseJoinColumns = @JoinColumn(name = "machine_producer_id", columnDefinition = "int"))
-    private Set<MachineModel> producedMachineModels;
 
     @Override
     public String toString() {
