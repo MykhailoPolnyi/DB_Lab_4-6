@@ -1,7 +1,9 @@
 package ua.lviv.iot.models.domain.snack;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ua.lviv.iot.models.domain.address.FullAddress;
 
 import javax.persistence.*;
@@ -11,6 +13,8 @@ import java.util.Set;
 @Entity
 @Table(name = "snack_producer")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SnackProducer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
